@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/statue_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Statue Title"
+        android:textColor="@color/colorAccent"
+        android:textSize="14pt"
+        android:textStyle="bold"/>
+
+</LinearLayout>
