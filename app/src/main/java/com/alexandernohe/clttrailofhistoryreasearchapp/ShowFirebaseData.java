@@ -1,10 +1,13 @@
 package com.alexandernohe.clttrailofhistoryreasearchapp;
 
 import android.app.Activity;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -41,10 +44,20 @@ public class ShowFirebaseData extends Activity{
                 titleView.setTextColor(Color.CYAN);
                 mLinearLayout.addView(titleView);
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    TextView additionalInformation = new TextView(getApplicationContext());
-                    additionalInformation.setTextColor(Color.BLACK);
-                    additionalInformation.setText(child.getKey() + " - " + child.getValue());
-                    mLinearLayout.addView(additionalInformation);
+                    if(child.getKey().startsWith("text")) {
+                        TextView additionalInformation = new TextView(getApplicationContext());
+                        additionalInformation.setTextColor(Color.BLACK);
+                        additionalInformation.setText(child.getKey() + " - " + child.getValue());
+                        mLinearLayout.addView(additionalInformation);
+                    }
+                    else if (child.getKey().startsWith("image")) {
+                        ImageView imageView = new ImageView(getApplicationContext());
+                        byte[] imageAsBytes = Base64.decode(child.getValue().toString().getBytes(), Base64.DEFAULT);
+                        imageView.setImageBitmap(
+                                BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length)
+                        );
+                        mLinearLayout.addView(imageView);
+                    }
                 }
             }
 
